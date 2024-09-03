@@ -8,8 +8,8 @@ import numpy as np
 from tqdm import tqdm
 
 import sys
-#sys.path.append("../")          # include examples directory
-#sys.path.append("../../")       # include ActuationModel directory
+sys.path.insert(0, "..")          # include examples directory
+sys.path.insert(0,"../..")       # include ActuationModel directory
 
 from set_environment import Environment
 from plot_frames import Frame

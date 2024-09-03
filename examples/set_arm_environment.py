@@ -287,13 +287,13 @@ class ArmEnvironment:
         """
         return time, self.get_systems(), done
 
-    def save_data(self, filename="simulation", **kwargs):
+    def save_data(self, target_position_idx, filename="Data/simulation", **kwargs):
         
         import pickle
 
         print("Saving data to pickle files ...", end='\r')
 
-        with open(filename+"_data.pickle", "wb") as data_file:
+        with open(filename+"_data_%03d.pickle"%target_position_idx, "wb") as data_file:
             data = dict(
                 recording_fps=self.recording_fps,
                 systems=self.get_data(),
@@ -302,11 +302,12 @@ class ArmEnvironment:
             )
             pickle.dump(data, data_file)
 
-        with open(filename+"_systems.pickle", "wb") as system_file:
-            data = dict(
-                systems=self.get_systems(),
-                muscle_groups=self.muscle_groups,
-            )
-            pickle.dump(data, system_file)
+        if target_position_idx==0:
+            with open(filename+"_systems_%03d.pickle"%target_position_idx, "wb") as system_file:
+                data = dict(
+                    systems=self.get_systems(),
+                    muscle_groups=self.muscle_groups,
+                )
+                pickle.dump(data, system_file)
 
         print("Saving data to pickle files ... Done!")
