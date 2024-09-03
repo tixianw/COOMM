@@ -42,9 +42,9 @@ class Frame(RodFrame, StrainFrame):
 	@classmethod
 	def get_frame(cls, filename):
 		file_dict = defaultdict(list)
-		file_dict['check_folder_flag'] = True
+		file_dict['check_folder_flag'] = False
 		file_dict['folder_name'] = filename+"_frames"
-		file_dict['figure_name'] = "frame{:04d}.png"
+		file_dict['figure_name'] = "target{:03d}_frame{:04d}.png"
 
 		fig_dict=defaultdict(list)
 		fig_dict['figsize']= (18, 9)
@@ -147,7 +147,7 @@ def main(target_position_idx): # filename):
 		frame.set_axes_strain_lim()
 
 		frame.set_labels(rod_data["time"][k])
-		frame.save(show=False)
+		frame.save(show=False, idx=idx)
 
 	# frame.movie(
 	#     frame_rate=recording_fps,

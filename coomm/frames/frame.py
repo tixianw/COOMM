@@ -48,7 +48,7 @@ class FrameBase:
         """
         plt.show()
 
-    def save(self, show=False, frame_count=None):
+    def save(self, show=False, frame_count=None, idx=None):
         """save.
 
         Parameters
@@ -64,7 +64,7 @@ class FrameBase:
             )
             self.fig.savefig(
                 self.folder_name + "/" +
-                self.figure_name.format(frame_count)
+                self.figure_name.format(idx, frame_count)
             )
             self.frame_count += 1
         if show:
