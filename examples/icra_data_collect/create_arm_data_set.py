@@ -5,21 +5,26 @@ Created on Jul 18, 2024
 
 import matplotlib.pyplot as plt
 import numpy as np
+print(np.__version__)
 from tqdm import tqdm
-import pickle
 # from tools import pos_dir_to_input
 import sys
 sys.path.append("../") # include elastica-python directory
 sys.path.append("../../")       # include ActuationModel directory
+import pickle
+# import json
+# import joblib
+import h5py
+
 
 color = ["C" + str(i) for i in range(10)]
-np.random.seed(2024)
+# np.random.seed(2024)
 
 folder_name = 'Data/'
 filename = "simulation"
 
 ## simulation data
-n_cases = 2
+n_cases = 64
 step_skip = 1
 
 # ## data point setup
@@ -75,6 +80,7 @@ true_kappa = np.vstack(true_kappa)
 true_shear = np.vstack(true_shear)
 print(true_pos.shape, true_dir.shape, true_kappa.shape, true_shear.shape)
 
+np.random.seed()
 idx_list = np.random.randint(
 	len(true_kappa), size=10
 )  # [i*250 for i in range(10)]
@@ -114,28 +120,46 @@ for ii in range(len(idx_list)):
 # plt.show()
 # quit()
 
-model_data = {
+# model_data = {
+# 	"n_elem": n_elem,
+# 	"L": L,
+# 	"radius": radius,
+# 	"s": s,
+# 	"dl": dl,
+# 	'bend_matrix': bend_matrix,
+# 	'shear_matrix': shear_matrix
+# }
+
+data = {
+	# "model": model_data,
+	# "n_data_pts": n_data_pts,
+	# "idx_data_pts": idx_data_pts,
+	# "input_data": input_data,
 	"n_elem": n_elem,
 	"L": L,
 	"radius": radius,
 	"s": s,
 	"dl": dl,
 	'bend_matrix': bend_matrix,
-	'shear_matrix': shear_matrix
-}
-
-data = {
-	"model": model_data,
-	# "n_data_pts": n_data_pts,
-	# "idx_data_pts": idx_data_pts,
-	# "input_data": input_data,
+	'shear_matrix': shear_matrix,
 	"true_pos": true_pos,
 	"true_dir": true_dir,
 	"true_kappa": true_kappa,
 	"true_shear": true_shear,
 }
 
-arm_data_name = 'octopus_arm_data.npy' # 
-np.save(folder_name + arm_data_name, data)
+# print(type(n_elem), type(L), type(radius), type(s), type(dl), type(bend_matrix), type(shear_matrix), type(model_data), type(true_pos), type(true_dir), type(true_kappa), type(true_shear))
+
+arm_data_name = 'octopus_arm_data' # 
+# np.save(folder_name + arm_data_name + '.npy, data)
+# with open(folder_name + arm_data_name + '.json', 'w') as f:
+#     json.dump(data, f)
+# Saving
+# joblib.dump(data, folder_name + arm_data_name + '.joblib')
+# with open(folder_name + arm_data_name + '.pickle', 'wb') as f:
+#     pickle.dump(data, f)
+with h5py.File(folder_name + arm_data_name + '.h5', 'w') as f:
+    for key, value in data.items():
+        f.create_dataset(key, data=value)
 
 plt.show()
