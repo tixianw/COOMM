@@ -5,11 +5,11 @@ Created on Jul 18, 2024
 
 import matplotlib.pyplot as plt
 import numpy as np
-print(np.__version__)
+# print(np.__version__)
 from tqdm import tqdm
 # from tools import pos_dir_to_input
 import sys
-sys.path.append("../") # include elastica-python directory
+# sys.path.append("../") # include examples directory
 sys.path.append("../../")       # include ActuationModel directory
 import pickle
 # import json
@@ -24,7 +24,7 @@ folder_name = 'Data/'
 filename = "simulation"
 
 ## simulation data
-n_cases = 64
+n_cases = 1 # 64
 step_skip = 1
 
 # ## data point setup
@@ -150,7 +150,7 @@ data = {
 
 # print(type(n_elem), type(L), type(radius), type(s), type(dl), type(bend_matrix), type(shear_matrix), type(model_data), type(true_pos), type(true_dir), type(true_kappa), type(true_shear))
 
-arm_data_name = 'octopus_arm_data' # 
+arm_data_name = 'octopus_arm_data_demo' # 'octopus_arm_data'
 # np.save(folder_name + arm_data_name + '.npy, data)
 # with open(folder_name + arm_data_name + '.json', 'w') as f:
 #     json.dump(data, f)
