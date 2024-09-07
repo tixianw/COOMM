@@ -10,8 +10,8 @@ import elastica as el
 from coomm.callback_func import SphereCallBack
 from elastica._calculus import _isnan_check
 
-import sys
-sys.path.append("../")          # include examples directory
+# import sys
+# sys.path.append("../")          # include examples directory
 from set_arm_environment import ArmEnvironment
 
 def check_target_distance(pos, target, threshold=2e-3):

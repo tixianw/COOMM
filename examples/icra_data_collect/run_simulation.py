@@ -8,7 +8,7 @@ from collections import defaultdict
 from tqdm import tqdm
 
 import sys
-sys.path.insert(0, "..")          # include examples directory
+# sys.path.insert(0, "..")          # include examples directory
 sys.path.insert(0,"../..")       # include ActuationModel directory
 
 from set_environment import Environment
