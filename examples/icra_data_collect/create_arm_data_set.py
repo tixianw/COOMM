@@ -24,7 +24,7 @@ folder_name = 'Data/'
 filename = "simulation"
 
 ## simulation data 
-n_cases = 6 # 64
+n_cases = 64 # 6 # 
 step_skip = 1
 
 # ## data point setup
@@ -36,6 +36,7 @@ step_skip = 1
 # print(idx_data_pts)
 
 # input_data = []
+time_list = [0]
 true_pos = []
 true_dir = []
 true_kappa = []
@@ -54,6 +55,9 @@ for i in tqdm(range(n_cases)):
 	shear = np.array(rod_data['sigma']) + np.array([0, 0, 1])[None, :, None]
 	# print(position.shape, director.shape, kappa.shape, shear.shape)
 	# quit()
+
+	time = rod_data['time']
+	time_list.append(time_list[-1]+len(time))
 
 	if i == 0:
 		with open(folder_name+filename+"_systems_%03d.pickle"%i, "rb") as f:
@@ -79,6 +83,7 @@ true_dir = np.vstack(true_dir)
 true_kappa = np.vstack(true_kappa)
 true_shear = np.vstack(true_shear)
 print(true_pos.shape, true_dir.shape, true_kappa.shape, true_shear.shape)
+print(time_list[-1], len(true_pos))
 
 np.random.seed()
 idx_list = np.random.randint(
@@ -130,27 +135,29 @@ for ii in range(len(idx_list)):
 # 	'shear_matrix': shear_matrix
 # }
 
-data = {
-	# "model": model_data,
-	# "n_data_pts": n_data_pts,
-	# "idx_data_pts": idx_data_pts,
-	# "input_data": input_data,
-	"n_elem": n_elem,
-	"L": L,
-	"radius": radius,
-	"s": s,
-	"dl": dl,
-	'bend_matrix': bend_matrix,
-	'shear_matrix': shear_matrix,
-	"true_pos": true_pos,
-	"true_dir": true_dir,
-	"true_kappa": true_kappa,
-	"true_shear": true_shear,
-}
+# data = {
+# 	# "model": model_data,
+# 	# "n_data_pts": n_data_pts,
+# 	# "idx_data_pts": idx_data_pts,
+# 	# "input_data": input_data,
+# 	"n_elem": n_elem,
+# 	"L": L,
+# 	"radius": radius,
+# 	"s": s,
+# 	"dl": dl,
+# 	'bend_matrix': bend_matrix,
+# 	'shear_matrix': shear_matrix,
+# 	"true_pos": true_pos,
+# 	"true_dir": true_dir,
+# 	"true_kappa": true_kappa,
+# 	"true_shear": true_shear,
+# }
+
+time_data = {'n_simulations': len(time_list)-1, 'time_list': time_list}
 
 # print(type(n_elem), type(L), type(radius), type(s), type(dl), type(bend_matrix), type(shear_matrix), type(model_data), type(true_pos), type(true_dir), type(true_kappa), type(true_shear))
 
-arm_data_name = 'octopus_arm_data_demo' # 'octopus_arm_data'
+arm_data_name = 'octopus_time_data' # 'octopus_arm_data_demo' # 'octopus_arm_data'
 # np.save(folder_name + arm_data_name + '.npy, data)
 # with open(folder_name + arm_data_name + '.json', 'w') as f:
 #     json.dump(data, f)
@@ -159,7 +166,7 @@ arm_data_name = 'octopus_arm_data_demo' # 'octopus_arm_data'
 # with open(folder_name + arm_data_name + '.pickle', 'wb') as f:
 #     pickle.dump(data, f)
 with h5py.File(folder_name + arm_data_name + '.h5', 'w') as f:
-    for key, value in data.items():
+    for key, value in time_data.items(): # time_data
         f.create_dataset(key, data=value)
 
 plt.show()
