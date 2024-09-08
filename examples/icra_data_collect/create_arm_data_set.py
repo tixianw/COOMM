@@ -24,7 +24,7 @@ folder_name = 'Data/'
 filename = "simulation"
 
 ## simulation data
-n_cases = 1 # 64
+n_cases = 4 # 64
 step_skip = 1
 
 # ## data point setup

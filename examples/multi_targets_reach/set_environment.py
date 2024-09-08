@@ -21,11 +21,21 @@ class Environment(ArmEnvironment):
         self.set_target()
 
     def set_target(self):
+        np.random.seed(444) # 333 ## 4 # 2 # 1 # 2025 # 2024
+        target = np.vstack([np.random.uniform(0.06, 0.12, (3)),
+                            np.random.uniform(0.15, 0.24, (3))]) # np.random.uniform(0.06, 0.24, (2,3))
+        idx_sort = np.argsort(np.linalg.norm(target, axis=1))
+        print('targets:', target, ', dist_sort_idx:', idx_sort, ', targets distance:', np.linalg.norm(target[1]-target[0]))
+
         self.spheres: list[el.Sphere] = []
         self.sphere_parameters: list[defaultdict] = []
+        # sphere_positions = [
+        #     np.array([0.01, 0.15, 0.06]),
+        #     np.array([0.02, 0.02, 0.02]),
+        # ]
         sphere_positions = [
-            np.array([0.01, 0.15, 0.06]),
-            np.array([0.02, 0.02, 0.02]),
+            target[idx_sort[0]],
+            target[idx_sort[1]],
         ]
         angle = np.pi * 0.75
         sphere_directors = [

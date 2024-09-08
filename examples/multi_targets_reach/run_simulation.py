@@ -64,7 +64,6 @@ def main(filename):
     controller_step_skip = int(1.0 / (controller_Hz * env.time_step))
     algo_callback = AlgorithmMuscleCallBack(step_skip=env.step_skip)
 
-
     activations_targets = []
     for target_index, sphere in enumerate(env.spheres):
         """ Initialize algorithm """
