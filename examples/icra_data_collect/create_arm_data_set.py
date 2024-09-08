@@ -23,8 +23,8 @@ color = ["C" + str(i) for i in range(10)]
 folder_name = 'Data/'
 filename = "simulation"
 
-## simulation data
-n_cases = 4 # 64
+## simulation data 
+n_cases = 6 # 64
 step_skip = 1
 
 # ## data point setup

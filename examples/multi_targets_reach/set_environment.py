@@ -21,7 +21,7 @@ class Environment(ArmEnvironment):
         self.set_target()
 
     def set_target(self):
-        np.random.seed(444) # 333 ## 4 # 2 # 1 # 2025 # 2024
+        np.random.seed(444) # 444 # 333 ## 4 # 2 # 1 # 2025 # 2024
         target = np.vstack([np.random.uniform(0.06, 0.12, (3)),
                             np.random.uniform(0.15, 0.24, (3))]) # np.random.uniform(0.06, 0.24, (2,3))
         idx_sort = np.argsort(np.linalg.norm(target, axis=1))
