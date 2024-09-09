@@ -6,6 +6,7 @@ Created on Sep. 23, 2021
 import numpy as np
 from collections import defaultdict
 from tqdm import tqdm
+import h5py
 
 import sys
 # sys.path.insert(0, "..")          # include examples directory
@@ -69,6 +70,16 @@ def main(target_position_idx): #, filename):
 	target_list = [np.array([0.3*i*L, 0.3*j*L, 0.3*k*L]) for i in range(1,5) for j in range(1,5) for k in range(1,5)]
 	target_init = target_list[idx]
 	print('actual target: ', target_init, 'idx:', idx+1, '/', len(target_list))
+	# for i in range(len(target_list)):
+	# 	print(i, target_list[i])
+	# cube333 = np.array([0.3*L, 0.3*L, 0.3*L])
+	# indices_in_corner = [idx for idx, target in enumerate(target_list)
+	# 						   if np.all(target > cube333)]
+	# target_data = {'target_list': target_list, 'indices_in_corner':indices_in_corner}
+	# with h5py.File('Data/target_data.h5', 'w') as f:
+	# 	for key, value in target_data.items():
+	# 		f.create_dataset(key, data=value)
+	# quit()
 
 	env.sphere.position_collection[:, 0] = target_init
 
